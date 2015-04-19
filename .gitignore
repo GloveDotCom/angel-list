@@ -46,3 +46,9 @@ docs/_build/
 # Notebook Directory
 notebooks/
 
+# python related stuff
+/.idea
+/venv
+
+# vi
+*.swp

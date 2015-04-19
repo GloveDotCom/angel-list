@@ -4,7 +4,6 @@ import json
 import urllib
 import urllib2
 
-
 _API_VERSION = 1
 
 _POST_HEADER = {
@@ -49,10 +48,13 @@ _USERS_BATCH = '{c_api}/{api}/users/batch?ids={ids}'#?access_token={at}'
 _S_SEARCH = '{c_api}/{api}/search?query={query}'
 _SLUG_SEARCH = '{c_api}/{api}/search/slugs?query={slug}'
 _COM = '{c_api}/{api}/comments?commentable_type={ct}&commentable_id={id_}'
-_JOBS = '{c_api}/{api}/jobs?page={pg}'
+# _JOBS = '{c_api}/{api}/jobs?page={pg}'
+# needs to be tested once API is back up
+_JOBS = '{c_api}/{api}/jobs?page={pg}?access_token={at}' # updated to include access token
 _JOBS_ID = '{c_api}/{api}/jobs/{id_}'
 _STARTUP_ID_JOBS = '{c_api}/{api}/startups/{id_}/jobs'
-_TAG_ID_JOBS = '{c_api}/{api}/tags/{id_}/jobs'
+#_TAG_ID_JOBS = '{c_api}/{api}/tags/{id_}/jobs'
+_TAG_ID_JOBS = '{c_api}/{api}/tags/{id_}/jobs?access_token={at}' # updated to include access token
 _LIKES = '{c_api}/{api}/likes?likable_type={lt}&likable_id={li}'
 _MESSAGES = '{c_api}/{api}/messages?access_token={at}'
 _MESSAGES_THREAD = '{c_api}/{api}/messages/{id_}?access_token={at}'
@@ -108,7 +110,8 @@ def _del_request(url, del_data):
 class AngelList(object):
 
 
-  def __init__(self, client_id, client_secret, access_token):
+
+  def __init__(self, client_id='8678157397d4e21c6c6bed7a0c0fa366', client_secret='01a0deb42173a19122291b08247f57f2', access_token='b0cf040043612cc40c5e37478354ebdc'):
     self.client_id = client_id
     self.client_secret = client_secret
     self.access_token = access_token
@@ -136,7 +139,8 @@ class AngelList(object):
   def get_tag_jobs(self, id_):
     url = _TAG_ID_JOBS.format(c_api=_C_API_BEGINNING,
                                                     api=_API_VERSION,
-                                                    id_=id_)
+                                                    id_=id_,
+                                                    at=self.access_token)
     return _get_request(url)
 
 
