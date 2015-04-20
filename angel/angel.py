@@ -91,7 +91,7 @@ def _enc_data(data):
 
 
 def _get_request(url):
-  return json.loads(urllib2.urlopen(url).read())
+  return json.dumps(json.loads(urllib2.urlopen(url).read()))
 
 
 def _post_request(url, post_data):
